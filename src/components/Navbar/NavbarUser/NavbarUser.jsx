@@ -6,10 +6,19 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
 
 export default function NavbarUser() {
   const dispatch = useDispatch();
-  const { email } = useSelector(getUser);
+  const { email, name } = useSelector(getUser);
+
+  const stringAvatar = ({ name }) => {
+    return {
+      sx: {
+        bgcolor: '#0d47a1',
+      },
+    };
+  };
 
   const onLogout = () => {
     dispatch(logout());
@@ -29,9 +38,12 @@ export default function NavbarUser() {
             {email}
           </Typography>
         </Stack>
-        <Button onClick={onLogout} variant="text" color="inherit">
-          Logout
-        </Button>
+        <Stack direction="row" spacing={1}>
+          <Avatar {...stringAvatar({ name })} />
+          <Button onClick={onLogout} variant="text" color="inherit">
+            Logout
+          </Button>
+        </Stack>
       </Stack>
     </div>
   );
